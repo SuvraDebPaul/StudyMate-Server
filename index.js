@@ -32,8 +32,6 @@ async function run() {
 
     const db = client.db("study-mate");
     const partnersCollection = db.collection("partners");
-    const requestsCollection = db.collection("requests");
-    const userCollection = db.collection("users");
 
     // Partner Related API
     //Post a New Partner
@@ -71,6 +69,19 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await productsCollection.deleteOne(query);
+      res.send(result);
+    });
+    // POST A PARTNER REQUEST
+    app.patch("/partners/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedPartner = req.body;
+      const query = { _id: new ObjectId(id) };
+      const update = {
+        $set: {
+          patnerCount: updatedPartner.patnerCount,
+        },
+      };
+      const result = await productsCollection.updateOne(query, update);
       res.send(result);
     });
 
