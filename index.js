@@ -43,7 +43,12 @@ async function run() {
     });
     //GET ALL PARTNERS
     app.get("/partners", async (req, res) => {
-      const result = await productsCollection.find().toArray();
+      const email = req.query.email;
+      const query = {};
+      if (email) {
+        query.email = email;
+      }
+      const result = await productsCollection.find(query).toArray();
       res.send(result);
     });
     // GET A SINGLE PARTNER
