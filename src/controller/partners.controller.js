@@ -4,7 +4,7 @@ const client = require("../config/db");
 const db = client.db("study-mate");
 const partnersCollection = db.collection("partners");
 
-// CREATE
+// CREATE PARTNER
 exports.createPartner = async (req, res) => {
   try {
     const result = await partnersCollection.insertOne(req.body);
@@ -15,7 +15,7 @@ exports.createPartner = async (req, res) => {
   }
 };
 
-// GET ALL
+// GET ALL PARTNER
 exports.getPartners = async (req, res) => {
   try {
     const query = req.query.email ? { email: req.query.email } : {};
@@ -26,7 +26,7 @@ exports.getPartners = async (req, res) => {
   }
 };
 
-// GET ONE
+// GET ONE PARTNER
 exports.getPartnerById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -37,7 +37,7 @@ exports.getPartnerById = async (req, res) => {
   }
 };
 
-// UPDATE
+// UPDATE PARTNER
 exports.updatePartner = async (req, res) => {
   try {
     const id = req.params.id;
@@ -52,7 +52,7 @@ exports.updatePartner = async (req, res) => {
   }
 };
 
-// DELETE
+// DELETE PARTNER
 exports.deletePartner = async (req, res) => {
   try {
     const id = req.params.id;
