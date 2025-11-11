@@ -4,7 +4,7 @@ const client = require("../config/db");
 const db = client.db("study-mate");
 const requestCollection = db.collection("requests");
 
-// CREATE PARTNER
+// CREATE PARTNER REQUEST
 exports.createPartnerRequest = async (req, res) => {
   try {
     const result = await requestCollection.insertOne(req.body);
@@ -31,10 +31,7 @@ exports.updatePartnerRequest = async (req, res) => {
   try {
     const id = req.params.id;
     const update = { $set: req.body };
-    const result = await requestCollection.updateOne(
-      { _id: new ObjectId(id) },
-      update
-    );
+    const result = await requestCollection.updateOne({ _id: id }, update);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });

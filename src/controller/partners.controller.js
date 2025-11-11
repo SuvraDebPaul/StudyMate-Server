@@ -38,7 +38,9 @@ exports.getPartners = async (req, res) => {
 exports.getPartnerById = async (req, res) => {
   try {
     const id = req.params.id;
-    const result = await partnersCollection.findOne({ _id: new ObjectId(id) });
+    console.log("Requested ID:", id);
+    const result = await partnersCollection.findOne({ _id: id });
+    console.log("Result:", result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -50,10 +52,9 @@ exports.updatePartner = async (req, res) => {
   try {
     const id = req.params.id;
     const update = { $set: req.body };
-    const result = await partnersCollection.updateOne(
-      { _id: new ObjectId(id) },
-      update
-    );
+    console.log(update);
+    const result = await partnersCollection.updateOne({ _id: id }, update);
+    console.log("Updated");
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -65,7 +66,7 @@ exports.deletePartner = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await partnersCollection.deleteOne({
-      _id: new ObjectId(id),
+      _id: id,
     });
     res.send(result);
   } catch (err) {
