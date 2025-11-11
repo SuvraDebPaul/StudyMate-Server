@@ -54,7 +54,7 @@ exports.updatePartner = async (req, res) => {
     const update = { $set: req.body };
     console.log(update);
     const result = await partnersCollection.updateOne({ _id: id }, update);
-    console.log("Updated");
+    console.log(result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });

@@ -18,8 +18,10 @@ exports.createPartnerRequest = async (req, res) => {
 // GET ALL PARTNER REQUEST
 exports.getPartnerRequests = async (req, res) => {
   try {
-    const query = { email: req.query.email };
-    const result = await requestCollection.find(query).toArray();
+    const email = req.query.email;
+    //console.log(email);
+    const result = await requestCollection.find({ email }).toArray();
+    //console.log(result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -42,9 +44,11 @@ exports.updatePartnerRequest = async (req, res) => {
 exports.deletePartnerRequest = async (req, res) => {
   try {
     const id = req.params.id;
+    // console.log(id);
     const result = await requestCollection.deleteOne({
       _id: new ObjectId(id),
     });
+    // console.log(result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
