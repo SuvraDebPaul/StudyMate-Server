@@ -8,13 +8,13 @@ const port = process.env.PORT || 3000;
 async function start() {
   try {
     await client.connect();
-    console.log("✅ Connected to MongoDB!");
+    //console.log("✅ Connected to MongoDB!");
 
     app.listen(port, () => {
-      console.log(`🚀 Server running on http://localhost:${port}`);
+      //console.log(`🚀 Server running on http://localhost:${port}`);
     });
   } catch (error) {
-    console.error("❌ DB Connection Error:", error);
+    //console.error("❌ DB Connection Error:", error);
   }
 }
 
