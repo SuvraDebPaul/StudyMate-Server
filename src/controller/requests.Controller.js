@@ -28,13 +28,30 @@ exports.getPartnerRequests = async (req, res) => {
   }
 };
 
+// GET ONE REQUEST
+exports.getPartnerRequestsById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    //console.log("Requested ID:", id);
+    const result = await requestCollection.findOne({ _id: new ObjectId(id) });
+    //console.log("Result:", result);
+    res.send(result);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
 // UPDATE PARTNER INFORMATION FROM REQUEST
 exports.updatePartnerRequest = async (req, res) => {
   try {
     const id = req.params.id;
     const update = { $set: req.body };
-    const result = await requestCollection.updateOne({ _id: id }, update);
+    const result = await requestCollection.updateOne(
+      { _id: new ObjectId(id) },
+      update
+    );
     res.send(result);
+    console.log(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
