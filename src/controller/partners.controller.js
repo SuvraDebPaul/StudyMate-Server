@@ -16,7 +16,7 @@ exports.createPartner = async (req, res) => {
       });
     }
     const result = await partnersCollection.insertOne(req.body);
-    console.log("Inserted Data Successfully");
+    // console.log("Inserted Data Successfully");
     res.send(result);
   } catch (error) {
     res.status(500).send({ success: false, error: error.message });
@@ -37,10 +37,13 @@ exports.getPartners = async (req, res) => {
 // GET ONE PARTNER
 exports.getPartnerById = async (req, res) => {
   try {
-    const id = req.params.id;
-    console.log("Requested ID:", id);
-    const result = await partnersCollection.findOne({ _id: id });
-    console.log("Result:", result);
+    const id = req.params.id?.trim();
+    // console.log("Requested ID:", id);
+    const query = ObjectId.isValid(id)
+      ? { $or: [{ _id: new ObjectId(id) }, { _id: id }] }
+      : { _id: id };
+    const result = await partnersCollection.findOne(query);
+    // console.log("Result:", result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -52,9 +55,9 @@ exports.updatePartner = async (req, res) => {
   try {
     const id = req.params.id;
     const update = { $set: req.body };
-    console.log(update);
+    // console.log(update);
     const result = await partnersCollection.updateOne({ _id: id }, update);
-    console.log(result);
+    // console.log(result);
     res.send(result);
   } catch (err) {
     res.status(500).send({ error: err.message });

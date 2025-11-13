@@ -7,6 +7,16 @@ const requestCollection = db.collection("requests");
 // CREATE PARTNER REQUEST
 exports.createPartnerRequest = async (req, res) => {
   try {
+    const { userid } = req.body;
+    // console.log(userid);
+    const existingRequest = await requestCollection.findOne({ userid });
+    // console.log(existingRequest);
+    if (existingRequest) {
+      return res.status(400).send({
+        success: false,
+        message: "Partner with this name already exists in Your Connections",
+      });
+    }
     const result = await requestCollection.insertOne(req.body);
     //console.log("Inserted Data Successfully");
     res.send(result);
@@ -51,7 +61,7 @@ exports.updatePartnerRequest = async (req, res) => {
       update
     );
     res.send(result);
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

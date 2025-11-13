@@ -11,7 +11,7 @@ async function start() {
     //console.log("✅ Connected to MongoDB!");
 
     app.listen(port, () => {
-      //console.log(`🚀 Server running on http://localhost:${port}`);
+      // console.log(`🚀 Server running on http://localhost:${port}`);
     });
   } catch (error) {
     //console.error("❌ DB Connection Error:", error);
